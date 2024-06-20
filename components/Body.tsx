@@ -1,69 +1,45 @@
+"use client";
 
-import React from "react";
-import BigCard from "./Cards/BigCard";
-import SmallCard from "./Cards/SmallCard";
-import {
-    ArrowDownIcon,
-    ArrowUpIcon,
-    CloudIcon,
-    FlagIcon,
-    NewspaperIcon,
-    SignalIcon,
-} from "@heroicons/react/20/solid";
+import { useState } from "react";
+import Content from "./Content";
+import InputField from "./InputField";
+import { WeatherData } from "@/constants/types";
 
-interface SmallCardDetail {
-    icon: React.ElementType;
-    title: string;
-    details: string;
-}
+const Body: React.FC = () => {
+    const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
-const Body = () => {
-    const smallCardDetails: SmallCardDetail[] = [
-        {
-            icon: FlagIcon,
-            title: "Wind Speed",
-            details: "5 km",
-        },
-        {
-            icon: CloudIcon,
-            title: "Gust",
-            details: "10 km",
-        },
-        {
-            icon: NewspaperIcon,
-            title: "Pressure",
-            details: "1008 hPa",
-        },
-        {
-            icon: SignalIcon,
-            title: "Humidity",
-            details: "48%",
-        },
-        {
-            icon: ArrowDownIcon,
-            title: "Minimum Temperature",
-            details: "5 °F",
-        },
-        {
-            icon: ArrowUpIcon,
-            title: "Maximum Temperature",
-            details: "80 °F",
-        },
-    ];
+    const fetchData = async (city: string) => {
+        const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6b8a19d1029b8a1fbc85e2c6b5c15dd2&units=imperial`
+        );
+
+        const data: WeatherData = await res.json();
+        setWeatherData(data);
+    };
+
     return (
-        <div className="flex flex-nowrap gap-5">
-            <BigCard />
-            <div className="grid w-2/3 grid-cols-2 gap-5">
-                {smallCardDetails.map((item, index) => (
-                    <SmallCard
-                        key={index}
-                        icon={item.icon}
-                        title={item.title}
-                        details={item.details}
-                    />
-                ))}
+        <>
+            <div className="flex flex-row items-center justify-between w-full">
+                <p className="text-nowrap mr-5">Find your location:</p>
+                <InputField />
             </div>
-        </div>
+            <div className="mt-10">
+                <div className="flex flex-row justify-between mb-5">
+                    <h1 className="text-2xl">Weather for Today</h1>
+                    <button
+                        className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                        onClick={() => fetchData("Baguio City")}
+                    >
+                        Refresh
+                    </button>
+                </div>
+                {!weatherData ? (
+                    <div>Check your weather now</div>
+                ) : (
+                    <Content weatherData={weatherData} />
+                )}
+            </div>
+        </>
     );
 };
 

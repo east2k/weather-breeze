@@ -1,24 +1,46 @@
-import { CalendarDaysIcon, MapPinIcon, SunIcon } from "@heroicons/react/20/solid";
+import {
+    CalendarDaysIcon,
+    MapPinIcon,
+    SunIcon,
+} from "@heroicons/react/20/solid";
+import Image from "next/image";
 import React from "react";
 
-const BigCard = () => {
+interface BigCardProps {
+    temperature: number;
+    description: string;
+    icon: string;
+    location: string;
+    country: string;
+}
+
+const BigCard: React.FC<BigCardProps> = ({
+    temperature,
+    description,
+    icon,
+    location,
+    country,
+}) => {
+    console.log(icon);
+
     return (
         <div className="px-5 pt-4 py-10 bg-ocean-800 w-1/3 rounded-md border border-opacity-25 border-ocean-50">
             <div className="p-5">
-                <SunIcon className="w-16 h-16" />
+                <Image
+                    src={`https://openweathermap.org/img/wn/${icon}.png`}
+                    width={64}
+                    height={64}
+                    alt="Weather Icon"
+                />
             </div>
             <div className="mt-5">
-                <h2 className="text-3xl font-semibold">28.5&deg;F</h2>
-                <p className="text-sm mt-2">Subtitle Weather Here</p>
+                <h2 className="text-3xl font-semibold">{temperature}&deg;F</h2>
+                <p className="text-sm mt-2 capitalize">{description}</p>
             </div>
             <div className="flex flex-col gap-2 mt-5 border-t pt-5">
                 <p className="flex">
                     <MapPinIcon className="w-5 h-5 mr-1" />
-                    Location
-                </p>
-                <p className="flex">
-                    <CalendarDaysIcon className="w-5 h-5 mr-1" />
-                    Data
+                    {location}, {country}
                 </p>
             </div>
         </div>
