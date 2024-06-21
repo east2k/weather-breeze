@@ -18,4 +18,5 @@ export interface WeatherData {
         speed: number;
         gust?: number;
     };
+    message: string;
 }

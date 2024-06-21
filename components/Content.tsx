@@ -56,7 +56,7 @@ const Content: React.FC<ContentProps> = ({ weatherData }) => {
     ];
 
     return (
-        <div className="flex flex-nowrap gap-5">
+        <div className="flex flex-nowrap gap-5 flex-col lg:flex-row">
             <BigCard
                 temperature={weatherData.main.temp}
                 description={weatherData.weather[0].description}
@@ -64,7 +64,7 @@ const Content: React.FC<ContentProps> = ({ weatherData }) => {
                 location={weatherData.name}
                 country={weatherData.sys.country}
             />
-            <div className="grid w-2/3 grid-cols-2 gap-5">
+            <div className="grid w-full lg:w-2/3 grid-cols-2 gap-5">
                 {smallCardDetails.map((item, index) => (
                     <SmallCard
                         key={index}

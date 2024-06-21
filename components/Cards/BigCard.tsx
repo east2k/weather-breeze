@@ -1,7 +1,5 @@
 import {
-    CalendarDaysIcon,
     MapPinIcon,
-    SunIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import React from "react";
@@ -21,10 +19,8 @@ const BigCard: React.FC<BigCardProps> = ({
     location,
     country,
 }) => {
-    console.log(icon);
-
     return (
-        <div className="px-5 pt-4 py-10 bg-ocean-800 w-1/3 rounded-md border border-opacity-25 border-ocean-50">
+        <div className="px-5 pt-4 py-10 bg-ocean-800 w-full lg:w-1/3 rounded-md border border-opacity-25 border-ocean-50">
             <div className="p-5">
                 <Image
                     src={`https://openweathermap.org/img/wn/${icon}.png`}

@@ -1,42 +1,55 @@
 "use client";
 
-import { useState } from "react";
 import Content from "./Content";
 import InputField from "./InputField";
+import useHandleFetchData from "@/hooks/useHandleFetchData";
 import { WeatherData } from "@/constants/types";
+import {
+    ArrowPathIcon,
+    ExclamationTriangleIcon,
+} from "@heroicons/react/20/solid";
+import Status from "./Status";
 
-const Body: React.FC = () => {
-    const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+interface BodyProps {
+    initialCity: WeatherData;
+}
 
-    const fetchData = async (city: string) => {
-        const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6b8a19d1029b8a1fbc85e2c6b5c15dd2&units=imperial`
-        );
-
-        const data: WeatherData = await res.json();
-        setWeatherData(data);
-    };
+const Body: React.FC<BodyProps> = ({ initialCity }) => {
+    const { handleSubmit, weatherData, searchRef, loading, error } =
+        useHandleFetchData(initialCity);
 
     return (
         <>
             <div className="flex flex-row items-center justify-between w-full">
                 <p className="text-nowrap mr-5">Find your location:</p>
-                <InputField />
+                <InputField searchRef={searchRef} handleSubmit={handleSubmit} />
             </div>
             <div className="mt-10">
+                {error && (
+                    <Status
+                        label="An unnexpected error has occured"
+                        icon={ExclamationTriangleIcon}
+                    />
+                )}
                 <div className="flex flex-row justify-between mb-5">
-                    <h1 className="text-2xl">Weather for Today</h1>
-                    <button
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                        onClick={() => fetchData("Baguio City")}
-                    >
-                        Refresh
-                    </button>
+                    <h1 className="text-2xl">
+                        Weather for Today
+                        {weatherData && <> in {weatherData.name}</>}
+                    </h1>
                 </div>
-                {!weatherData ? (
-                    <div>Check your weather now</div>
+                {loading ? (
+                    <Status label="Loading" icon={ArrowPathIcon} />
                 ) : (
-                    <Content weatherData={weatherData} />
+                    <>
+                        {!weatherData ? (
+                            <p>
+                                The place &#xFF02;{searchRef.current?.value}
+                                &#xFF02; does not exist.
+                            </p>
+                        ) : (
+                            <Content weatherData={weatherData} />
+                        )}
+                    </>
                 )}
             </div>
         </>
