@@ -24,7 +24,7 @@ const InputField: React.FC<InputFieldProps> = ({ searchRef, handleSubmit }) => {
                 onKeyDown={handleKeyDown}
                 ref={searchRef}
                 type="text"
-                className="bg-ocean-800 outline-none px-9 py-2 rounded-s-md rounded- w-full"
+                className="bg-ocean-800 outline-none px-9 py-2 pr-4 sm:pr-auto rounded-s-md rounded w-full"
                 placeholder="Search..."
             />
             <MagnifyingGlassIcon
@@ -32,7 +32,7 @@ const InputField: React.FC<InputFieldProps> = ({ searchRef, handleSubmit }) => {
                 className="cursor-pointer absolute top-1/2 left-3 -translate-y-1/2 w-5 h-5"
             />
             <button
-                className="px-4 py-2 bg-ocean-500 text-white rounded-e-md"
+                className="px-4 py-2 bg-ocean-500 text-white rounded-e-md hidden sm:block"
                 onClick={handleClick}
             >
                 Search

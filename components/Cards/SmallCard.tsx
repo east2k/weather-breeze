@@ -10,7 +10,7 @@ const SmallCard: React.FC<SmallCardProps> = ({
     details,
 }) => {
     return (
-        <div className="flex flex-col md:flex-row px-10 py-10 bg-ocean-800 rounded-md border border-opacity-25 border-ocean-50 ">
+        <div className="flex flex-col md:flex-row px-10 py-4 md:py-10 bg-ocean-800 rounded-md border border-opacity-25 border-ocean-50 ">
             <div className="md:mr-5 flex justify-center items-center mr-0">
                 <Icon width={35} />
             </div>

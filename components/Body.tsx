@@ -20,7 +20,7 @@ const Body: React.FC<BodyProps> = ({ initialCity }) => {
 
     return (
         <>
-            <div className="flex flex-row items-center justify-between w-full">
+            <div className="flex flex-col items-start md:items-center justify-between w-full md:flex-row">
                 <p className="text-nowrap mr-5">Find your location:</p>
                 <InputField searchRef={searchRef} handleSubmit={handleSubmit} />
             </div>

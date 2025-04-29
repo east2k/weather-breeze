@@ -64,7 +64,7 @@ const Content: React.FC<ContentProps> = ({ weatherData }) => {
                 location={weatherData.name}
                 country={weatherData.sys.country}
             />
-            <div className="grid w-full lg:w-2/3 grid-cols-2 gap-5">
+            <div className="grid w-full lg:w-2/3 grid-cols-1 sm:grid-cols-2 gap-5 ">
                 {smallCardDetails.map((item, index) => (
                     <SmallCard
                         key={index}

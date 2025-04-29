@@ -8,7 +8,7 @@ export default async function Home() {
     const initialCity: WeatherData = await res.json();
     
     return (
-        <main className="mx-auto my-10 bg-ocean-950 w-[90%] rounded-md px-10 py-5">
+        <main className="mx-auto my-10 bg-ocean-950 w-[90%] rounded-md px-4 sm:px-10 py-5">
             <Body initialCity={initialCity} />
         </main>
     );
